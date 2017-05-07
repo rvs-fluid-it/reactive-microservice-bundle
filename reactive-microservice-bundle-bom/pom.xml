@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>be.fluid-it.reactive-microservice.bundle</groupId>
+    <artifactId>reactive-microservice-bundle-bom-versions</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <relativePath>../reactive-microservice-bundle-bom-versions/pom.xml</relativePath>
+  </parent>  
+
+  <artifactId>reactive-microservice-bundle-bom</artifactId>
+
+  <packaging>pom</packaging>
+  <name>reactive-microservice-bundle-bom</name>
+  <description>Bill of material pom for the reactive �Service bundle.</description>
+  
+  <dependencyManagement>
+    <dependencies>
+      <!-- µService bundle -->
+      <dependency>
+        <groupId>be.fluid-it.reactive-microservice.bundle</groupId>
+        <artifactId>reactive-microservice-bundle-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>be.fluid-it.reactive-microservice.bundle</groupId>
+        <artifactId>reactive-microservice-bundle-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <!--dependency>
+        <groupId>be.fluid-it.reactive-microservice.bundle</groupId>
+        <artifactId>reactive-microservice-bundle-testing</artifactId>
+        <version>${project.version}</version>
+      </dependency-->
+      
+      <!-- Vertx -->
+      <dependency>
+        <groupId>io.vertx</groupId>
+        <artifactId>vertx-dependencies</artifactId>
+        <version>${vertx.version}</version>
+        <type>pom</type>
+        <scope>import</scope>        
+      </dependency>
+      
+      <!-- Bootique -->
+      <dependency>
+        <groupId>io.bootique.bom</groupId>
+        <artifactId>bootique-bom</artifactId>
+        <version>${bootique.version}</version>
+        <type>pom</type>
+        <scope>import</scope>        
+      </dependency>
+    </dependencies>
+  </dependencyManagement>  
+</project>  

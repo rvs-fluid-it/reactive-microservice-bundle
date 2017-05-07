@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>be.fluid-it.reactive-microservice.bundle</groupId>
+    <artifactId>reactive-microservice-bundle-distribution</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <relativePath>../reactive-microservice-bundle-distribution/pom.xml</relativePath>
+  </parent>  
+
+  <artifactId>reactive-microservice-bundle-bom-versions</artifactId>
+
+  <packaging>pom</packaging>
+  <name>reactive-microservice-bundle-bom-versions</name>
+  <description>Version properties used in the bill of material pom of the reactive �service bundle.</description>
+  
+  <properties>
+    <reactive.microservice.bundle.version>${project.version}</reactive.microservice.bundle.version>
+    <vertx.version>3.4.1</vertx.version>
+    <bootique.version>0.22</bootique.version>
+  </properties>
+</project>  
