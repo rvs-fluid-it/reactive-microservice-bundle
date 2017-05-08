@@ -15,7 +15,7 @@
 
   <packaging>pom</packaging>
   <name>reactive-microservice-bundle-bom</name>
-  <description>Bill of material pom for the reactive �Service bundle.</description>
+  <description>Bill of material pom for the reactive µService bundle.</description>
   
   <dependencyManagement>
     <dependencies>
@@ -52,6 +52,53 @@
         <version>${bootique.version}</version>
         <type>pom</type>
         <scope>import</scope>        
+      </dependency>
+      <dependency>
+        <groupId>com.google.inject</groupId>
+        <artifactId>guice</artifactId>
+        <version>${bootique.guice.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.inject.extensions</groupId>
+        <artifactId>guice-multibindings</artifactId>
+        <version>${bootique.guice.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${bootique.jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>${bootique.jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.dataformat</groupId>
+        <artifactId>jackson-dataformat-yaml</artifactId>
+        <version>${bootique.jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sf.jopt-simple</groupId>
+        <artifactId>jopt-simple</artifactId>
+        <version>5.0.3</version>
+      </dependency>
+
+      <!-- Common -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4j.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>  
