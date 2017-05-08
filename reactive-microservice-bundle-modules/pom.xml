@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="
+        http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>be.fluid-it.reactive-microservice.bundle</groupId>
+    <artifactId>reactive-microservice-bundle-distribution</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <relativePath>../reactive-microservice-bundle-distribution/pom.xml</relativePath>
+  </parent>
+  <artifactId>reactive-microservice-bundle-modules</artifactId>
+  <packaging>pom</packaging>
+  <name>reactive-microservice-bundle</name>
+  <description>Opinionated bundle to quickly build reactive microservices with Vertx and Bootique.</description>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <modules>
+    <module>../reactive-microservice-bundle-api</module>
+    <module>../reactive-microservice-bundle-core</module>
+    <!--module>../reactive-microservice-bundle-showcase</module>
+    <module>../reactive-microservice-bundle-showcase-delivery</module>
+    <module>../reactive-microservice-bundle-testing</module-->
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>reactive-microservice-bundle-bom</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>        
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>  

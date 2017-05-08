@@ -17,6 +17,7 @@
     <module>../reactive-microservice-bundle-distribution</module>
     <module>../reactive-microservice-bundle-bom-versions</module>
     <module>../reactive-microservice-bundle-bom</module>
-    <!--module>../reactive-microservice-bundle-modules</module-->
+    <module>../bootique-vertx</module>
+    <module>../reactive-microservice-bundle-modules</module>
   </modules>
 </project>

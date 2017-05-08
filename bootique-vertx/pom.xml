@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>be.fluid-it.reactive-microservice.bundle</groupId>
+    <artifactId>reactive-microservice-bundle-distribution</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <relativePath>../reactive-microservice-bundle-distribution/pom.xml</relativePath>
+  </parent>  
+
+  <artifactId>bootique-vertx</artifactId>
+
+  <packaging>jar</packaging>
+  <name>bootique-vertx</name>
+  <description>Vertx module for Bootique</description>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>reactive-microservice-bundle-bom</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>        
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+  </dependencies>
+</project>  
