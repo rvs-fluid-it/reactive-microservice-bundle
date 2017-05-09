@@ -23,6 +23,10 @@ public class VertxFactory {
         this.httpServerPort = httpServerPort;
     }
 
+    public int httpServerPort() {
+        return httpServerPort;
+    }
+
     public Vertx createVertxEngine(Set<? extends Verticle> verticles) {
         System.out.println("httpServerPort = " + httpServerPort + " ...");
         Vertx vertx = Vertx.vertx();

@@ -1,6 +1,7 @@
 package be.fluid_it.rµs.bundle.showcase.verticles;
 
 import be.fluid_it.rµs.bundle.showcase.domain.CounterService;
+import com.google.inject.name.Named;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.json.JsonObject;
@@ -15,10 +16,12 @@ import java.util.HashMap;
 
 public class CounterVerticle extends AbstractVerticle {
     private final CounterService counterService;
+    private int httpServerPort;
 
     @Inject
-    public CounterVerticle(CounterService counterService) {
+    public CounterVerticle(CounterService counterService, @Named(value = "port") int httpServerPort) {
         this.counterService = counterService;
+        this.httpServerPort = httpServerPort;
     }
 
     @Override
@@ -44,7 +47,7 @@ public class CounterVerticle extends AbstractVerticle {
         router.route("/eventbus/*").handler(ebHandler);
 
         // Start the web server and tell it to use the router to handle requests.
-        vertx.createHttpServer().requestHandler(router::accept).listen(8880);
+        vertx.createHttpServer().requestHandler(router::accept).listen(httpServerPort);
 
         EventBus eb = vertx.eventBus();
 

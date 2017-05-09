@@ -4,6 +4,7 @@ import be.fluid_it.bootique.vertx.command.EngineCommand;
 import com.google.inject.Binder;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import io.bootique.BQCoreModule;
 import io.bootique.ConfigModule;
 import io.bootique.config.ConfigurationFactory;
@@ -40,7 +41,21 @@ public class VertxModule extends ConfigModule {
 
     @Singleton
     @Provides
-    public Vertx provideVertxEngine(ConfigurationFactory configFactory, Set<Verticle> verticles) {
-        return configFactory.config(VertxFactory.class, configPrefix).createVertxEngine(verticles);
+    public Vertx provideVertxEngine(VertxFactory vertxFactory, Set<Verticle> verticles) {
+        return vertxFactory.createVertxEngine(verticles);
     }
+
+    @Singleton
+    @Provides
+    public VertxFactory provideVertxFactory(ConfigurationFactory configFactory) {
+        return configFactory.config(VertxFactory.class, configPrefix);
+    }
+
+    @Singleton
+    @Provides
+    @Named (value = "port")
+    public int provideHttpServerPort(VertxFactory vertxFactory) {
+        return vertxFactory.httpServerPort();
+    }
+
 }
