@@ -25,7 +25,26 @@ public class EngineCommand  extends CommandWithMetadata {
 
     @Override
     public CommandOutcome run(Cli cli) {
-        Vertx vertx = vertxProvider.get();
+        Vertx vertx = null;
+        try {
+            vertx = vertxProvider.get();
+        }  catch (Exception e) {
+            return CommandOutcome.failed(1, e);
+        }
+
+        try {
+            Thread.currentThread().join();
+        } catch (InterruptedException ie) {
+
+            // interruption of a running Vertx daemon is a normal event, so unless we get shutdown errors, return success
+            try {
+                if (vertx != null) {
+                    vertx.close();
+                }
+            } catch (Exception se) {
+                return CommandOutcome.failed(1, se);
+            }
+        }
         return CommandOutcome.succeeded();
     }
 }
