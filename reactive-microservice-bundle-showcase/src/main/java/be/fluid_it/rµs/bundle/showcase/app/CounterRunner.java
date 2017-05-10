@@ -5,6 +5,6 @@ import io.bootique.Bootique;
 
 public class CounterRunner {
     public static void main(String[] args) {
-        Bootique.app(new String[]{"--engine", "--config=counter.yml"}).autoLoadModules().module(ShowcaseModule.class).run();
+        Bootique.app(new String[]{"--engine", "--config=classpath:counter.yml"}).autoLoadModules().module(ShowcaseModule.class).run();
     }
 }
