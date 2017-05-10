@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>be.fluid-it.reactive-microservice.bundle</groupId>
+  <artifactId>reactive-microservice-bundle-showcase-delivery</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  
+  <packaging>pom</packaging>
+  <name>reactive-microservice-bundle-showcase-delivery</name>
+  <description>Showcase of the delivery process of a service build with the reactive microservice bundle.</description>
+
+  <properties>
+    <capsule.version>1.0</capsule.version>
+    <capsule.maven.plugin.version>1.0.0</capsule.maven.plugin.version>
+  </properties>
+  
+  <modules>
+    <module>./reactive-microservice-bundle-showcase-cfg</module>
+    <module>./reactive-microservice-bundle-showcase-capsule</module>
+  </modules>
+</project>  

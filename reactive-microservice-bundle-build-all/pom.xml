@@ -21,5 +21,6 @@
     <module>../bootique-vertx</module>
     <module>../reactive-microservice-bundle-modules</module>
     <module>../reactive-microservice-bundle-showcase</module>
+    <module>../reactive-microservice-bundle-showcase-delivery</module>
   </modules>
 </project>

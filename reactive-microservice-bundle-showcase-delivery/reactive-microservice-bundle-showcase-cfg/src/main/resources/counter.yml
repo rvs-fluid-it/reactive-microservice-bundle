@@ -1,0 +1,2 @@
+vertx:
+  httpServerPort: 8880 
