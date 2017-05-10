@@ -18,14 +18,14 @@
   <description>Showcase application utilizing the microservice bundle packaged as a capsule.</description>
 
   <properties>
-    <!-- capsule.io -->
-    <capsule.version>1.0</capsule.version>
-    <capsule.maven.plugin.version>1.0.0</capsule.maven.plugin.version>
+    <reactive.microservice.bundle.version>${project.version}</reactive.microservice.bundle.version>
+    <mixin.capsule.app.class>be.fluid_it.rµs.bundle.showcase.app.CounterRunner</mixin.capsule.app.class>
+    <mixin.capsule.file.name>counter</mixin.capsule.file.name>
     <!-- Spotify Docker plugin -->
-    <docker.maven.plugin.version>0.3.9</docker.maven.plugin.version>
-    <revision>1</revision>
-    <docker.registry></docker.registry>
-    <push.image>false</push.image>
+    <mixin.docker.maven.plugin.version>0.3.9</mixin.docker.maven.plugin.version>
+    <mixin.docker.revision>1</mixin.docker.revision>
+    <mixin.docker.registry></mixin.docker.registry>
+    <mixin.docker.push.image>false</mixin.docker.push.image>
   </properties>
   <dependencies>
     <dependency>
@@ -43,27 +43,32 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>com.github.chrischristo</groupId>
-        <artifactId>capsule-maven-plugin</artifactId>
-        <version>${capsule.maven.plugin.version}</version>
+        <groupId>com.github.odavid.maven.plugins</groupId>
+        <artifactId>mixin-maven-plugin</artifactId>
+        <version>0.1-alpha-39</version>
+        <extensions>true</extensions>
         <configuration>
-              <appClass>be.fluid_it.rµs.bundle.showcase.app.CounterRunner</appClass>
-			  <types>fat</types>
-              <manifest>
-                <entry>
-                  <key>Allow-Snapshots</key>
-                  <value>true</value>
-                </entry>
-              </manifest>
+          <mixins>
+            <mixin>
+              <groupId>be.fluid-it.reactive-microservice.bundle.mixins</groupId>
+              <artifactId>capsule</artifactId>
+              <version>${reactive.microservice.bundle.version}</version>
+            </mixin>
+            <mixin>
+              <groupId>be.fluid-it.reactive-microservice.bundle.mixins</groupId>
+              <artifactId>docker</artifactId>
+              <version>${reactive.microservice.bundle.version}</version>
+            </mixin>
+          </mixins>
         </configuration>
       </plugin>
       <plugin>
         <groupId>com.spotify</groupId>
         <artifactId>docker-maven-plugin</artifactId>
-        <version>${docker.maven.plugin.version}</version>
+        <version>${mixin.docker.maven.plugin.version}</version>
         <configuration>
-          <imageName>${docker.registry}counter:${revision}</imageName>
-          <pushImage>${push.image}</pushImage>
+          <imageName>${mixin.docker.registry}counter:${mixin.docker.revision}</imageName>
+          <pushImage>${mixin.docker.push.image}</pushImage>
           <baseImage>java</baseImage>
           <entryPoint>["java", "-jar", "/${project.build.finalName}-capsule-fat.jar"]</entryPoint>
           <!-- copy the service's jar file from target into the root directory of the image -->
@@ -79,49 +84,6 @@
     </plugins>         
   </build>
   <profiles>
-    <profile>
-      <id>capsule</id>
-      <activation>
-        <file>
-          <!-- Always active -->
-          <exists>pom.xml</exists>
-        </file>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.github.chrischristo</groupId>
-            <artifactId>capsule-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>build</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>executable-capsule</id>
-      <activation>
-        <os>
-          <family>unix</family>
-        </os>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.github.chrischristo</groupId>
-            <artifactId>capsule-maven-plugin</artifactId>
-            <configuration>
-              <chmod>true</chmod>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
     <profile>
       <id>docker</id>
       <build>

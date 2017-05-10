@@ -6,15 +6,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>be.fluid-it.reactive-microservice.bundle</groupId>
-  <artifactId>reactive-microservice-bundle-showcase-delivery</artifactId>
+  <artifactId>mixins</artifactId>
   <version>0.1-SNAPSHOT</version>
   
   <packaging>pom</packaging>
-  <name>reactive-microservice-bundle-showcase-delivery</name>
-  <description>Showcase of the delivery process of a service build with the reactive microservice bundle.</description>
+  <name>reactive-microservice-bundle-mixins</name>
+  <description>A collection of mixins which enables reuse of plugin configurations.</description>
 
   <modules>
-    <module>./reactive-microservice-bundle-showcase-cfg</module>
-    <module>./reactive-microservice-bundle-showcase-capsule</module>
+    <module>./jdk</module>
+    <module>./capsule</module>
+    <module>./docker</module>
+    <module>./helios</module>
   </modules>
 </project>  

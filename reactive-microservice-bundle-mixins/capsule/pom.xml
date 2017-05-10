@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>be.fluid-it.reactive-microservice.bundle</groupId>
+    <artifactId>reactive-microservice-bundle-distribution</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <relativePath>../../reactive-microservice-bundle-distribution/pom.xml</relativePath>
+  </parent>  
+    
+  <groupId>be.fluid-it.reactive-microservice.bundle.mixins</groupId>
+  <artifactId>capsule</artifactId>
+  <packaging>pom</packaging>
+
+  <properties>
+    <!-- capsule.io -->
+    <mixin.capsule.version>1.0</mixin.capsule.version>
+    <mixin.capsule.maven.plugin.version>1.5.1</mixin.capsule.maven.plugin.version>
+    <mixin.capsule.app.class>unknown</mixin.capsule.app.class>
+    <mixin.capsule.file.name>unkown</mixin.capsule.file.name>
+    <mixin.capsule.file.desc></mixin.capsule.file.desc>
+    <mixin.capsule.file.namedesc>${mixin.capsule.file.name}${mixin.capsule.file.desc}</mixin.capsule.file.namedesc>
+  </properties>
+	
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.github.chrisdchristo</groupId>
+        <artifactId>capsule-maven-plugin</artifactId>
+        <version>${mixin.capsule.maven.plugin.version}</version>
+        <configuration>
+          <appClass>${mixin.capsule.app.class}</appClass>
+          <fileName>${mixin.capsule.file.name}</fileName>
+          <fileDesc>${mixin.capsule.file.desc}</fileDesc>
+          <type>fat</type>
+          <manifest>
+            <entry>
+              <key>Allow-Snapshots</key>
+              <value>true</value>
+            </entry>
+          </manifest>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>mixin.capsule</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.chrisdchristo</groupId>
+            <artifactId>capsule-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>executable-capsule</id>
+      <activation>
+        <os>
+          <family>unix</family>
+        </os>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.chrischristo</groupId>
+            <artifactId>capsule-maven-plugin</artifactId>
+            <configuration>
+              <chmod>true</chmod>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

@@ -5,16 +5,17 @@
     <groupId>be.fluid-it.reactive-microservice.bundle</groupId>
     <artifactId>reactive-microservice-bundle-distribution</artifactId>
     <version>0.1-SNAPSHOT</version>
-    <relativePath>../reactive-microservice-bundle-distribution/pom.xml</relativePath>
+    <relativePath>../../reactive-microservice-bundle-distribution/pom.xml</relativePath>
   </parent>  
     
-  <artifactId>reactive-microservice-bundle-mixin</artifactId>
+  <groupId>be.fluid-it.reactive-microservice.bundle.mixins</groupId>
+  <artifactId>jdk</artifactId>
   <packaging>pom</packaging>
 
   <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <mixin.jdk.compiler.source>1.8</mixin.jdk.compiler.source>
+    <mixin.jdk.compiler.target>1.8</mixin.jdk.compiler.target>
+    <mixin.jdk.sourceEncoding>UTF-8</mixin.jdk.sourceEncoding>
   </properties>
 	
   <build>
@@ -24,9 +25,9 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.6.1</version>
         <configuration>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
-          <encoding>${project.build.sourceEncoding}</encoding>
+          <source>${mixin.jdk.compiler.source}</source>
+          <target>${mixin.jdk.compiler.target}</target>
+          <encoding>${mixin.jdk.sourceEncoding}</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -34,7 +35,7 @@
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.0.2</version>
         <configuration>
-          <encoding>${project.build.sourceEncoding}</encoding>
+          <encoding>${mixin.jdk.sourceEncoding}</encoding>
         </configuration>
       </plugin>
     </plugins>
