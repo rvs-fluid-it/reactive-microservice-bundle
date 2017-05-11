@@ -13,10 +13,71 @@
   <packaging>pom</packaging>
 
   <properties>
+    <mixin.helios.job.name>unknown</mixin.helios.job.name>
+    <mixin.helios.job.version>0</mixin.helios.job.version>
+    <mixin.helios.job.json.input.directory>${project.basedir}/src/helios/resources</mixin.helios.job.json.input.directory> 
+    <mixin.helios.job.json.output.directory>${project.build.directory}/helios</mixin.helios.job.json.output.directory> 
+    <mixin.helios.job.master>${platform.helios.master}</mixin.helios.job.master>
   </properties>
 	
-  <build>
-    <plugins>
-    </plugins>
-  </build>
+  <profiles> 
+    <profile>
+      <id>mixin.helios</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.5.0</version>
+            <executions>
+              <execution>
+                <id>mixin.helios.job.exec</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>helios</executable>
+                  <arguments>
+                    <argument>create</argument>
+                    <argument>${mixin.helios.job.name}:${mixin.helios.job.version}</argument>
+                    <argument>-f</argument>
+                    <argument>${mixin.helios.job.json.output.directory}/job.json</argument>
+                    <argument>-z</argument>
+                    <argument>http://${mixin.helios.job.master}</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>            
+          </plugin>
+          <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+                <id>replace-placeholder-job.json</id>
+                <!-- here the phase you need -->
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${mixin.helios.job.json.output.directory}</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>${mixin.helios.job.json.input.directory}</directory>
+                      <includes>
+                        <include>job.json</include>
+                      </includes>
+                      <filtering>true</filtering>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
