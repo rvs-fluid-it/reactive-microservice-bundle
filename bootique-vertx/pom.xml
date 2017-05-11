@@ -54,8 +54,8 @@
         <configuration>
           <mixins>
             <mixin>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>reactive-microservice-bundle-mixin</artifactId>
+              <groupId>be.fluid-it.reactive-microservice.bundle.mixins</groupId>
+              <artifactId>jdk</artifactId>
               <version>${reactive.microservice.bundle.version}</version>
             </mixin>
           </mixins>
