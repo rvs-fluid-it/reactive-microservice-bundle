@@ -18,10 +18,12 @@
   <description>Showcase application utilizing the microservice bundle packaged as a capsule.</description>
 
   <properties>
+    <service.name>counter</service.name>
     <reactive.microservice.bundle.version>${project.version}</reactive.microservice.bundle.version>
     <mixin.capsule.app.class>be.fluid_it.rµs.bundle.showcase.app.CounterRunner</mixin.capsule.app.class>
-    <mixin.capsule.file.name>counter</mixin.capsule.file.name>
+    <mixin.capsule.file.name>${service.name}</mixin.capsule.file.name>
     <mixin.docker.revision>1</mixin.docker.revision>
+    <mixin.docker.image.name>${service.name}</mixin.docker.image.name>
     <mixin.docker.jar.name>${mixin.capsule.name}.jar</mixin.docker.jar.name>
     <mixin.docker.registry>${platform.docker.registry}</mixin.docker.registry>
     <mixin.docker.push.image>false</mixin.docker.push.image>

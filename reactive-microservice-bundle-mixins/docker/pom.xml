@@ -16,6 +16,7 @@
     <mixin.docker.maven.plugin.version>0.3.9</mixin.docker.maven.plugin.version>
     <mixin.docker.revision>0</mixin.docker.revision>
     <mixin.docker.directory>${project.build.directory}</mixin.docker.directory>
+    <mixin.docker.image.name>unknown</mixin.docker.image.name>
     <mixin.docker.jar.name>unknown.jar</mixin.docker.jar.name>
     <mixin.docker.registry>unknown</mixin.docker.registry>
     <mixin.docker.push.image>true</mixin.docker.push.image>
@@ -28,7 +29,7 @@
         <artifactId>docker-maven-plugin</artifactId>
         <version>${mixin.docker.maven.plugin.version}</version>
         <configuration>
-          <imageName>${mixin.docker.registry}counter:${mixin.docker.revision}</imageName>
+          <imageName>${mixin.docker.registry}/${mixin.docker.image.name}:${mixin.docker.revision}</imageName>
           <pushImage>${mixin.docker.push.image}</pushImage>
           <baseImage>java</baseImage>
           <entryPoint>["java", "-jar", "/${mixin.docker.jar.name}"]</entryPoint>
