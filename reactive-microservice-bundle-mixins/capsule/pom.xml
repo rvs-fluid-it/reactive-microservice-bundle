@@ -18,8 +18,8 @@
     <mixin.capsule.maven.plugin.version>1.5.1</mixin.capsule.maven.plugin.version>
     <mixin.capsule.app.class>unknown</mixin.capsule.app.class>
     <mixin.capsule.file.name>unkown</mixin.capsule.file.name>
-    <mixin.capsule.file.desc></mixin.capsule.file.desc>
-    <mixin.capsule.file.namedesc>${mixin.capsule.file.name}${mixin.capsule.file.desc}</mixin.capsule.file.namedesc>
+    <mixin.capsule.file.desc>-capsule</mixin.capsule.file.desc>
+    <mixin.capsule.name>${mixin.capsule.file.name}${mixin.capsule.file.desc}</mixin.capsule.name>
   </properties>
 	
   <build>

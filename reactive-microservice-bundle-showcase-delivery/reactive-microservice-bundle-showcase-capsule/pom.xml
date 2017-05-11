@@ -21,10 +21,9 @@
     <reactive.microservice.bundle.version>${project.version}</reactive.microservice.bundle.version>
     <mixin.capsule.app.class>be.fluid_it.rµs.bundle.showcase.app.CounterRunner</mixin.capsule.app.class>
     <mixin.capsule.file.name>counter</mixin.capsule.file.name>
-    <!-- Spotify Docker plugin -->
-    <mixin.docker.maven.plugin.version>0.3.9</mixin.docker.maven.plugin.version>
     <mixin.docker.revision>1</mixin.docker.revision>
-    <mixin.docker.registry></mixin.docker.registry>
+    <mixin.docker.jar.name>${mixin.capsule.name}.jar</mixin.docker.jar.name>
+    <mixin.docker.registry>${platform.docker.registry}</mixin.docker.registry>
     <mixin.docker.push.image>false</mixin.docker.push.image>
   </properties>
   <dependencies>
@@ -62,46 +61,6 @@
           </mixins>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>com.spotify</groupId>
-        <artifactId>docker-maven-plugin</artifactId>
-        <version>${mixin.docker.maven.plugin.version}</version>
-        <configuration>
-          <imageName>${mixin.docker.registry}counter:${mixin.docker.revision}</imageName>
-          <pushImage>${mixin.docker.push.image}</pushImage>
-          <baseImage>java</baseImage>
-          <entryPoint>["java", "-jar", "/${project.build.finalName}-capsule-fat.jar"]</entryPoint>
-          <!-- copy the service's jar file from target into the root directory of the image -->
-          <resources>
-            <resource>
-              <targetPath>/</targetPath>
-              <directory>${project.build.directory}</directory>
-              <include>${project.build.finalName}-capsule-fat.jar</include>
-            </resource>
-          </resources>
-        </configuration>
-      </plugin>
     </plugins>         
   </build>
-  <profiles>
-    <profile>
-      <id>docker</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.spotify</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>build</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
-</project>  
+</project>
