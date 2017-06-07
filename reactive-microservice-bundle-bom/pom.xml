@@ -44,6 +44,11 @@
         <type>pom</type>
         <scope>import</scope>        
       </dependency>
+      <dependency>
+        <groupId>io.reactivex</groupId>
+        <artifactId>rxjava</artifactId>
+        <version>${vertx.rxjava.version}</version>
+      </dependency>
       
       <!-- Bootique -->
       <dependency>

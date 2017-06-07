@@ -1,5 +1,6 @@
 package be.fluid_it.bootique.vertx;
 
+import be.fluid_it.bootique.vertx.verticles.HttpRouterSockJSVerticle;
 import com.google.inject.Binder;
 import com.google.inject.multibindings.Multibinder;
 import io.bootique.ModuleExtender;
@@ -26,6 +27,7 @@ public class VertxModuleExtender extends ModuleExtender<VertxModuleExtender> {
     private Multibinder<Verticle> contributeVerticles() {
         if (verticles == null) {
             verticles = newSet(Verticle.class);
+            verticles.addBinding().to(HttpRouterSockJSVerticle.class);
         }
         return verticles;
     }

@@ -1,6 +1,8 @@
 package be.fluid_it.bootique.vertx;
 
 import be.fluid_it.bootique.vertx.command.EngineCommand;
+import be.fluid_it.bootique.vertx.config.BridgeConfig;
+import be.fluid_it.bootique.vertx.config.PermissionsConfig;
 import com.google.inject.Binder;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -10,6 +12,8 @@ import io.bootique.ConfigModule;
 import io.bootique.config.ConfigurationFactory;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
+import io.vertx.ext.web.handler.sockjs.BridgeOptions;
+import io.vertx.ext.web.handler.sockjs.PermittedOptions;
 
 import java.util.Set;
 
@@ -56,6 +60,20 @@ public class VertxModule extends ConfigModule {
     @Named (value = "port")
     public int provideHttpServerPort(VertxFactory vertxFactory) {
         return vertxFactory.httpServerPort();
+    }
+
+    @Singleton
+    @Provides
+    public BridgeOptions provideVertxFactory(VertxFactory vertxFactory) {
+        PermissionsConfig permissionsConfig = vertxFactory.bridge().permissions();
+        BridgeOptions opts = new BridgeOptions();
+        for (String inboundPermmited : permissionsConfig.inbound()) {
+            opts.addInboundPermitted(new PermittedOptions().setAddress(inboundPermmited));
+        }
+        for (String outboundPermmited : permissionsConfig.outbound()) {
+            opts.addOutboundPermitted(new PermittedOptions().setAddress(outboundPermmited));
+        }
+        return opts;
     }
 
 }

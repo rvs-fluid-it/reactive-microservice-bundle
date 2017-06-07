@@ -1,5 +1,6 @@
 package be.fluid_it.bootique.vertx;
 
+import be.fluid_it.bootique.vertx.config.BridgeConfig;
 import io.bootique.annotation.BQConfig;
 import io.bootique.annotation.BQConfigProperty;
 import io.vertx.core.Verticle;
@@ -14,6 +15,8 @@ import java.util.Set;
 public class VertxFactory {
     private int httpServerPort;
 
+    private BridgeConfig bridge;
+
     /**
      *
      * @param httpServerPort The port for the http server
@@ -25,6 +28,19 @@ public class VertxFactory {
 
     public int httpServerPort() {
         return httpServerPort;
+    }
+
+    /**
+     *
+     * @param bridge The configuration of the Eventbus SocketJS bridge
+     */
+    @BQConfigProperty
+    public void setBridge(BridgeConfig bridge) {
+        this.bridge = bridge;
+    }
+
+    public BridgeConfig bridge() {
+        return bridge;
     }
 
     public Vertx createVertxEngine(Set<? extends Verticle> verticles) {
