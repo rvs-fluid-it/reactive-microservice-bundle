@@ -18,13 +18,18 @@
   <description>Showcase application utilizing the microservice bundle packaged as a capsule.</description>
 
   <properties>
+    <service.name>counter</service.name>
+    <service.version>1</service.version>
     <reactive.microservice.bundle.version>${project.version}</reactive.microservice.bundle.version>
     <mixin.capsule.app.class>be.fluid_it.rµs.bundle.showcase.app.CounterRunner</mixin.capsule.app.class>
-    <mixin.capsule.file.name>counter</mixin.capsule.file.name>
-    <mixin.docker.revision>1</mixin.docker.revision>
+    <mixin.capsule.file.name>${service.name}</mixin.capsule.file.name>
+    <mixin.docker.revision>${service.version}</mixin.docker.revision>
+    <mixin.docker.image.name>${service.name}</mixin.docker.image.name>
+    <mixin.docker.registry>${platform.docker.registry}</mixin.docker.registry>
     <mixin.docker.jar.name>${mixin.capsule.name}.jar</mixin.docker.jar.name>
     <mixin.docker.registry>${platform.docker.registry}</mixin.docker.registry>
-    <mixin.docker.push.image>false</mixin.docker.push.image>
+    <mixin.helios.job.name>${service.name}</mixin.helios.job.name>
+    <mixin.helios.job.version>${service.version}</mixin.helios.job.version>
   </properties>
   <dependencies>
     <dependency>
@@ -56,6 +61,11 @@
             <mixin>
               <groupId>be.fluid-it.reactive-microservice.bundle.mixins</groupId>
               <artifactId>docker</artifactId>
+              <version>${reactive.microservice.bundle.version}</version>
+            </mixin>
+            <mixin>
+              <groupId>be.fluid-it.reactive-microservice.bundle.mixins</groupId>
+              <artifactId>helios</artifactId>
               <version>${reactive.microservice.bundle.version}</version>
             </mixin>
           </mixins>

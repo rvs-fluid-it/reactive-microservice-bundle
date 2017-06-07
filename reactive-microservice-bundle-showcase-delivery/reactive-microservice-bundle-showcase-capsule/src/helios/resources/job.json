@@ -1,0 +1,16 @@
+{
+  "healthCheck" : {
+    "type" : "http",
+    "path" : "/eventbus",
+    "port" : "http"
+  },
+  "image" : "${platform.docker.registry}/${service.name}:${service.version}",
+  "networkMode" : "bridge",
+  "ports" : {
+    "http" : {
+      "externalPort" : 2220,
+      "internalPort" : 8880,
+      "protocol" : "tcp"
+    }
+  }
+}
