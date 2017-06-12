@@ -8,6 +8,7 @@ import io.bootique.annotation.BQConfigProperty;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -56,6 +57,10 @@ public class VertxFactory {
 
     public RouterConfig router() {
         return router;
+    }
+
+    public boolean isRouterDefined() {
+        return this.router != null;
     }
 
     public Vertx createVertxEngine(Set<? extends Verticle> verticles) {

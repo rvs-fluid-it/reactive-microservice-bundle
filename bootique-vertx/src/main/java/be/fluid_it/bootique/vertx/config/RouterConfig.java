@@ -8,12 +8,12 @@ public class RouterConfig {
         return staticHandler;
     }
 
-    public boolean staticHandlerDefined() {
-        return staticHandler != null;
-    }
-
     public void setStatic(StaticHandlerConfig staticHandler) {
         this.staticHandler = staticHandler;
+    }
+
+    public boolean isStaticHandlerDefined() {
+        return this.staticHandler != null;
     }
 
     public SockJSHandlerConfig sockjs() {
@@ -22,5 +22,9 @@ public class RouterConfig {
 
     public void setSockjs(SockJSHandlerConfig sockjs) {
         this.sockjs = sockjs;
+    }
+
+    public boolean isSockJSHandlerDefined() {
+        return this.sockjs != null;
     }
 }
