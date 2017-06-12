@@ -8,7 +8,6 @@ import io.bootique.annotation.BQConfigProperty;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
 
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -21,7 +20,6 @@ public class VertxFactory {
     private BridgeConfig bridge;
 
     /**
-     *
      * @param http The http services
      */
     @BQConfigProperty
@@ -34,7 +32,6 @@ public class VertxFactory {
     }
 
     /**
-     *
      * @param bridge The configuration of the Eventbus SocketJS bridge
      */
     @BQConfigProperty
@@ -47,7 +44,6 @@ public class VertxFactory {
     }
 
     /**
-     *
      * @param router The configuration of the router
      */
     @BQConfigProperty
@@ -65,7 +61,7 @@ public class VertxFactory {
 
     public Vertx createVertxEngine(Set<? extends Verticle> verticles) {
         Vertx vertx = Vertx.vertx();
-        verticles.forEach( v -> vertx.deployVerticle(v));
+        verticles.forEach(v -> vertx.deployVerticle(v));
         return vertx;
     }
 }
