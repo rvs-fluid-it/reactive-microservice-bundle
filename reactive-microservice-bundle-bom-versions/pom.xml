@@ -26,6 +26,8 @@
     <bootique.jackson.version>2.6.4</bootique.jackson.version>
     <bootique.jopt.version>5.0.3</bootique.jopt.version>
 
+    <jsr305.version>3.0.0</jsr305.version>
+
     <!-- Common lib versions -->
     <junit.version>4.12</junit.version>
     <slf4j.version>1.7.25</slf4j.version>

@@ -20,6 +20,7 @@ import io.vertx.rxjava.ext.web.handler.StaticHandler;
 import io.vertx.rxjava.ext.web.handler.sockjs.BridgeEvent;
 import io.vertx.rxjava.ext.web.handler.sockjs.SockJSHandler;
 
+import javax.annotation.Nullable;
 import java.util.Set;
 
 public class VertxModule extends ConfigModule {
@@ -62,56 +63,78 @@ public class VertxModule extends ConfigModule {
 
     @Singleton
     @Provides
-    @Named (value = "port")
+    @Named(value = "port")
     public int provideHttpServerPort(VertxFactory vertxFactory) {
         return vertxFactory.http() != null ?
-                ( vertxFactory.http().server() != null ? vertxFactory.http().server().port() : 8080 ) :
-                8080;
+                (vertxFactory.http().server() != null ? vertxFactory.http().server().port() : 8080) : 8080;
     }
 
     @Singleton
+    @Nullable
     @Provides
     public BridgeOptions provideBridgeOptions(VertxFactory vertxFactory) {
-        PermissionsConfig permissionsConfig = vertxFactory.router().sockjs().bridge().permissions();
-        BridgeOptions opts = new BridgeOptions();
-        for (String inboundPermmited : permissionsConfig.inbound()) {
-            opts.addInboundPermitted(new PermittedOptions().setAddress(inboundPermmited));
+        BridgeOptions opts = null;
+
+        if (vertxFactory.isRouterDefined() && vertxFactory.router().isSockJSHandlerDefined()) {
+
+            PermissionsConfig permissionsConfig = vertxFactory.router().sockjs().bridge().permissions();
+            opts = new BridgeOptions();
+            for (String inboundPermmited : permissionsConfig.inbound()) {
+                opts.addInboundPermitted(new PermittedOptions().setAddress(inboundPermmited));
+            }
+            for (String outboundPermmited : permissionsConfig.outbound()) {
+                opts.addOutboundPermitted(new PermittedOptions().setAddress(outboundPermmited));
+            }
         }
-        for (String outboundPermmited : permissionsConfig.outbound()) {
-            opts.addOutboundPermitted(new PermittedOptions().setAddress(outboundPermmited));
-        }
+
         return opts;
     }
 
     @Singleton
+    @Nullable
     @Provides
     public Router provideRouter(VertxFactory vertxFactory,
                                 Vertx vertx,
-                                BridgeOptions bridgeOptions,
-                                Handler<BridgeEvent> bridgeEventHandler) {
+                                @Nullable BridgeOptions bridgeOptions,
+                                @Nullable Handler<BridgeEvent> bridgeEventHandler) {
         io.vertx.rxjava.core.Vertx rxVertx = new io.vertx.rxjava.core.Vertx(vertx);
         Router router = Router.router(rxVertx);
 
-        SockJSHandler sjsHandler = SockJSHandler.create(rxVertx).bridge(bridgeOptions, bridgeEventHandler);
-        Route sockJSRoute = null;
-        if (vertxFactory.router().sockjs().path() != null) {
-            sockJSRoute = router.route(vertxFactory.router().sockjs().path());
-        } else {
-            sockJSRoute = router.route();
+        if (vertxFactory.isRouterDefined()) {
+            configureSockJS(vertxFactory, rxVertx, router, bridgeOptions, bridgeEventHandler);
+            configureStaticHandler(vertxFactory, router);
         }
-        sockJSRoute.handler(sjsHandler);
-        if (vertxFactory.router().staticHandlerDefined()) {
-            Route staticRoute = null;
-            if (vertxFactory.router().staticHandler().path() != null)  {
+
+        return router;
+    }
+
+    private void configureSockJS(VertxFactory vertxFactory, io.vertx.rxjava.core.Vertx rxVertx, Router router, BridgeOptions bridgeOptions, Handler<BridgeEvent> bridgeEventHandler) {
+        if (vertxFactory.router().isSockJSHandlerDefined()) {
+            SockJSHandler sjsHandler = SockJSHandler.create(rxVertx).bridge(bridgeOptions, bridgeEventHandler);
+
+            Route sockJSRoute;
+            if (vertxFactory.router().staticHandler().path() != null) {
+                sockJSRoute = router.route(vertxFactory.router().staticHandler().path());
+            } else {
+                sockJSRoute = router.route();
+            }
+
+            sockJSRoute.handler(sjsHandler);
+        }
+    }
+
+    private void configureStaticHandler(VertxFactory vertxFactory, Router router) {
+        if (vertxFactory.router().isStaticHandlerDefined()) {
+            Route staticRoute;
+
+            if (vertxFactory.router().staticHandler().path() != null) {
                 staticRoute = router.route(vertxFactory.router().staticHandler().path());
             } else {
                 staticRoute = router.route();
             }
-            staticRoute.handler(
-                    vertxFactory.router().staticHandler().root() != null ?
-                            StaticHandler.create(vertxFactory.router().staticHandler().root()) :
-                            StaticHandler.create());
+
+            staticRoute.handler(vertxFactory.router().staticHandler().root() != null ?
+                    StaticHandler.create(vertxFactory.router().staticHandler().root()) : StaticHandler.create());
         }
-        return router;
     }
 }
