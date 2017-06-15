@@ -6,11 +6,13 @@
     <artifactId>reactive-microservice-bundle-distribution</artifactId>
     <version>0.1-SNAPSHOT</version>
     <relativePath>../../reactive-microservice-bundle-distribution/pom.xml</relativePath>
-  </parent>  
-    
+  </parent> 
+
   <groupId>be.fluid-it.reactive-microservice.bundle.mixins</groupId>
   <artifactId>capsule</artifactId>
   <packaging>pom</packaging>
+  <name>mixin-capsule</name>
+  <description>Mixin creating a fat jar</description>
 
   <properties>
     <!-- capsule.io -->
@@ -21,7 +23,7 @@
     <mixin.capsule.file.desc>-capsule</mixin.capsule.file.desc>
     <mixin.capsule.name>${mixin.capsule.file.name}${mixin.capsule.file.desc}</mixin.capsule.name>
   </properties>
-	
+  
   <build>
     <plugins>
       <plugin>

@@ -11,6 +11,8 @@
   <groupId>be.fluid-it.reactive-microservice.bundle.mixins</groupId>
   <artifactId>docker</artifactId>
   <packaging>pom</packaging>
+  <name>mixin-docker</name>
+  <description>Mixin creating Docker image</description>
 
   <properties>
     <mixin.docker.maven.plugin.version>0.3.9</mixin.docker.maven.plugin.version>
