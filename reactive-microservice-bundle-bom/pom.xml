@@ -88,6 +88,13 @@
         <version>5.0.3</version>
       </dependency>
 
+      <!-- Guice -->
+      <dependency>
+        <groupId>com.google.code.findbugs</groupId>
+        <artifactId>jsr305</artifactId>
+        <version>${jsr305.version}</version>
+      </dependency>
+
       <!-- Common -->
       <dependency>
         <groupId>junit</groupId>

@@ -11,6 +11,8 @@
   <groupId>be.fluid-it.reactive-microservice.bundle.mixins</groupId>
   <artifactId>jdk</artifactId>
   <packaging>pom</packaging>
+  <name>jdk-mixin</name>
+  <description>Mixin configuring the jdk</description>
 
   <properties>
     <mixin.jdk.compiler.source>1.8</mixin.jdk.compiler.source>

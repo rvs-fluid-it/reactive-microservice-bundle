@@ -11,6 +11,8 @@
   <groupId>be.fluid-it.reactive-microservice.bundle.mixins</groupId>
   <artifactId>helios</artifactId>
   <packaging>pom</packaging>
+  <name>helios-mixin</name>
+  <description>Mixin creating Helios job</description>
 
   <properties>
     <mixin.helios.job.name>unknown</mixin.helios.job.name>
