@@ -49,7 +49,6 @@
         <artifactId>rxjava</artifactId>
         <version>${vertx.rxjava.version}</version>
       </dependency>
-      
       <!-- Bootique -->
       <dependency>
         <groupId>io.bootique.bom</groupId>

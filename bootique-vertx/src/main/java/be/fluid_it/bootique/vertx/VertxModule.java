@@ -2,6 +2,7 @@ package be.fluid_it.bootique.vertx;
 
 import be.fluid_it.bootique.vertx.command.EngineCommand;
 import be.fluid_it.bootique.vertx.config.PermissionsConfig;
+import be.fluid_it.bootique.vertx.filter.ChannelsDiscoverableFilter;
 import com.google.inject.Binder;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -85,14 +86,35 @@ public class VertxModule extends ConfigModule {
 
     @Singleton
     @Provides
+    @Named("channels.discoverable")
+    public boolean provideChannelsDiscoverable(VertxFactory vertxFactory) {
+        return vertxFactory.router().sockjs().channels().isDiscoverable();
+    }
+
+
+    @Singleton
+    @Provides
+    @Named("channels.service.name")
+    public String provideChannelsServiceName(VertxFactory vertxFactory) {
+        return vertxFactory.router().sockjs().channels().serviceName();
+    }
+
+    @Singleton
+    @Provides
     public Router provideRouter(VertxFactory vertxFactory,
                                 Vertx vertx,
                                 BridgeOptions bridgeOptions,
-                                Handler<BridgeEvent> bridgeEventHandler) {
+                                Handler<BridgeEvent> bridgeEventHandler,
+                                @Named("channels.discoverable") boolean channelsDiscoverable,
+                                @Named("channels.service.name") String channelsServiceName) {
         io.vertx.rxjava.core.Vertx rxVertx = new io.vertx.rxjava.core.Vertx(vertx);
         Router router = Router.router(rxVertx);
 
-        SockJSHandler sjsHandler = SockJSHandler.create(rxVertx).bridge(bridgeOptions, bridgeEventHandler);
+        Handler<BridgeEvent> decoratedBridgeEventHandler = bridgeEventHandler;
+        if (channelsDiscoverable) {
+            decoratedBridgeEventHandler = new ChannelsDiscoverableFilter(decoratedBridgeEventHandler, vertx, channelsServiceName);
+        }
+        SockJSHandler sjsHandler = SockJSHandler.create(rxVertx).bridge(bridgeOptions, decoratedBridgeEventHandler);
         Route sockJSRoute = null;
         if (vertxFactory.router().sockjs().path() != null) {
             sockJSRoute = router.route(vertxFactory.router().sockjs().path());
