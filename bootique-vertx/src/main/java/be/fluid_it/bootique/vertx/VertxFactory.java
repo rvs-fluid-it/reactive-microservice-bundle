@@ -5,9 +5,11 @@ import be.fluid_it.bootique.vertx.config.HttpConfig;
 import be.fluid_it.bootique.vertx.config.RouterConfig;
 import io.bootique.annotation.BQConfig;
 import io.bootique.annotation.BQConfigProperty;
+import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -59,9 +61,16 @@ public class VertxFactory {
         return this.router != null;
     }
 
-    public Vertx createVertxEngine(Set<? extends Verticle> verticles) {
+    public Vertx createVertxEngine(Set<? extends Verticle> verticles, Map<Class, DeploymentOptions> deploymentOptionsMap) {
         Vertx vertx = Vertx.vertx();
-        verticles.forEach(v -> vertx.deployVerticle(v));
+        verticles.forEach(v -> {
+                    if (deploymentOptionsMap.containsKey(v.getClass())) {
+                        vertx.deployVerticle(v, deploymentOptionsMap.get(v.getClass()));
+                    } else {
+                        vertx.deployVerticle(v);
+                    }
+                }
+            );
         return vertx;
     }
 }

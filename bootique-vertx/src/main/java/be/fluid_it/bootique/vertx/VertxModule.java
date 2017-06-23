@@ -10,6 +10,7 @@ import com.google.inject.name.Named;
 import io.bootique.BQCoreModule;
 import io.bootique.ConfigModule;
 import io.bootique.config.ConfigurationFactory;
+import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Handler;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
@@ -22,6 +23,7 @@ import io.vertx.rxjava.ext.web.handler.sockjs.BridgeEvent;
 import io.vertx.rxjava.ext.web.handler.sockjs.SockJSHandler;
 
 import javax.annotation.Nullable;
+import java.util.Map;
 import java.util.Set;
 
 public class VertxModule extends ConfigModule {
@@ -52,8 +54,8 @@ public class VertxModule extends ConfigModule {
 
     @Singleton
     @Provides
-    public Vertx provideVertxEngine(VertxFactory vertxFactory, Set<Verticle> verticles) {
-        return vertxFactory.createVertxEngine(verticles);
+    public Vertx provideVertxEngine(VertxFactory vertxFactory, Set<Verticle> verticles, Map<Class, DeploymentOptions> deploymentOptions) {
+        return vertxFactory.createVertxEngine(verticles, deploymentOptions);
     }
 
     @Singleton
