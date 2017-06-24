@@ -28,7 +28,12 @@ public class VertxModuleExtender extends ModuleExtender<VertxModuleExtender> {
         return this;
     }
 
-    public VertxModuleExtender addDeploymentOptions(Class verticleClazz, DeploymentOptions deploymentOptions) {
+    public VertxModuleExtender addVerticle(Class<? extends Verticle> verticleClazz, DeploymentOptions deploymentOptions) {
+        addVerticle(verticleClazz).addDeploymentOptions(verticleClazz, deploymentOptions);
+        return this;
+    }
+
+    private VertxModuleExtender addDeploymentOptions(Class verticleClazz, DeploymentOptions deploymentOptions) {
         contributeDeploymentOptions().addBinding(verticleClazz).toInstance(deploymentOptions);
         return this;
     }
