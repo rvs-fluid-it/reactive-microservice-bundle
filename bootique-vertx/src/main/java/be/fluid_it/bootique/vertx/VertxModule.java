@@ -83,10 +83,10 @@ public class VertxModule extends ConfigModule {
             PermissionsConfig permissionsConfig = vertxFactory.router().sockjs().bridge().permissions();
             opts = new BridgeOptions();
             for (String inboundPermmited : permissionsConfig.inbound()) {
-                opts.addInboundPermitted(new PermittedOptions().setAddress(inboundPermmited));
+                opts.addInboundPermitted(inboundPermmited.contains("*")? new PermittedOptions().setAddressRegex(inboundPermmited) : new PermittedOptions().setAddress(inboundPermmited));
             }
             for (String outboundPermmited : permissionsConfig.outbound()) {
-                opts.addOutboundPermitted(new PermittedOptions().setAddress(outboundPermmited));
+                opts.addOutboundPermitted(outboundPermmited.contains("*")? new PermittedOptions().setAddressRegex(outboundPermmited) : new PermittedOptions().setAddress(outboundPermmited));
             }
         }
 
