@@ -11,12 +11,16 @@ import io.vertx.rxjava.servicediscovery.types.MessageSource;
 import io.vertx.servicediscovery.Record;
 import io.vertx.servicediscovery.ServiceDiscovery;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ChannelsDiscoverableFilter implements Handler<BridgeEvent> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final Handler<BridgeEvent> handler;
     private final Vertx vertx;
     private final String serviceName;
+    private final Map<String, String> registrations = new HashMap<>();
 
     public ChannelsDiscoverableFilter(Handler<BridgeEvent> handler,
                                       Vertx vertx, String serviceName) {
@@ -37,7 +41,14 @@ public class ChannelsDiscoverableFilter implements Handler<BridgeEvent> {
                     Record record = MessageSource.createRecord(serviceName, address);
                     discovery.publish(record, ar -> {
                         if (ar.succeeded()) {
-                            System.out.printf("Successfully registered channel [%s, %s] by id[%s]...\n", serviceName, address, ar.result().getRegistration());
+                            logger.info("Successfully registered channel [" +
+                                    serviceName +
+                                    ", " +
+                                    address +
+                                    "] by id [" +
+                                    ar.result().getRegistration() +
+                                    "]...\n");
+                            this.registrations.put(bridgeEvent.socket().writeHandlerID(), ar.result().getRegistration());
                         }
                     });
                     discovery.close();
@@ -47,14 +58,14 @@ public class ChannelsDiscoverableFilter implements Handler<BridgeEvent> {
             case UNREGISTER:
                 {
                     ServiceDiscovery discovery = ServiceDiscovery.create(vertx);
-                    JsonObject message = bridgeEvent.getRawMessage();
-                    String address = message.getString("address");
+                    String writeHandlerID = bridgeEvent.socket().writeHandlerID();
 
-                    Record record = MessageSource.createRecord(serviceName, address);
-                    if (record.getRegistration() != null) {
-                        discovery.unpublish(record.getRegistration(), ar -> {
+                    if (registrations.containsKey(writeHandlerID)) {
+                        discovery.unpublish(registrations.get(writeHandlerID), ar -> {
                             if (ar.succeeded()) {
-                                logger.info("Successfully unregistered channel [%s, %s] ...\n", serviceName, address);
+                                logger.info("Successfully unregistered channel with id [" +
+                                        writeHandlerID +
+                                        "] ...\n");
                             }
                         });
                     }
