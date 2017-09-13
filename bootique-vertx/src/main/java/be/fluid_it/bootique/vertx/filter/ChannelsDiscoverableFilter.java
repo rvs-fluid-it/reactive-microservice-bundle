@@ -37,7 +37,7 @@ public class ChannelsDiscoverableFilter implements Handler<BridgeEvent> {
                     Record record = MessageSource.createRecord(serviceName, address);
                     discovery.publish(record, ar -> {
                         if (ar.succeeded()) {
-                            System.out.printf("Successfully registered channel [%s, %s] ...\n", serviceName, address);
+                            System.out.printf("Successfully registered channel [%s, %s] by id[%s]...\n", serviceName, address, ar.result().getRegistration());
                         }
                     });
                     discovery.close();
@@ -51,11 +51,13 @@ public class ChannelsDiscoverableFilter implements Handler<BridgeEvent> {
                     String address = message.getString("address");
 
                     Record record = MessageSource.createRecord(serviceName, address);
-                    discovery.unpublish(record.getRegistration(), ar -> {
-                        if (ar.succeeded()) {
-                            logger.info("Successfully unregistered channel [%s, %s] ...\n", serviceName, address);
-                        }
-                    });
+                    if (record.getRegistration() != null) {
+                        discovery.unpublish(record.getRegistration(), ar -> {
+                            if (ar.succeeded()) {
+                                logger.info("Successfully unregistered channel [%s, %s] ...\n", serviceName, address);
+                            }
+                        });
+                    }
                     discovery.close();
                 }
                 break;
