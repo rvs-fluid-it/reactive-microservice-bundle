@@ -20,6 +20,7 @@
     <module>../reactive-microservice-bundle-mixins</module>
     <module>../bootique-vertx</module>
     <module>../reactive-microservice-bundle-modules</module>
+    <module>../reactive-microservice-bundle-minimal-showcase</module>
     <module>../reactive-microservice-bundle-showcase</module>
     <module>../reactive-microservice-bundle-showcase-delivery</module>
   </modules>

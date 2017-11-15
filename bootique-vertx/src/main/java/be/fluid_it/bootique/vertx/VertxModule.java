@@ -104,7 +104,12 @@ public class VertxModule extends ConfigModule {
     @Provides
     @Named("channels.discoverable")
     public boolean provideChannelsDiscoverable(VertxFactory vertxFactory) {
-        return vertxFactory.router().sockjs().channels().isDiscoverable();
+        if (vertxFactory.isRouterDefined()) {
+            if (vertxFactory.router().isSockJSHandlerDefined()) {
+                return vertxFactory.router().sockjs().channels().isDiscoverable();
+            }
+        }
+        return false;
     }
 
 
@@ -112,7 +117,12 @@ public class VertxModule extends ConfigModule {
     @Provides
     @Named("channels.service.name")
     public String provideChannelsServiceName(VertxFactory vertxFactory) {
-        return vertxFactory.router().sockjs().channels().serviceName();
+        if (vertxFactory.isRouterDefined()) {
+            if (vertxFactory.router().isSockJSHandlerDefined()) {
+                return vertxFactory.router().sockjs().channels().serviceName();
+            }
+        }
+        return null;
     }
 
     @Singleton
@@ -122,7 +132,7 @@ public class VertxModule extends ConfigModule {
                                 @Nullable BridgeOptions bridgeOptions,
                                 @Nullable Handler<BridgeEvent> bridgeEventHandler,
                                 @Named("channels.discoverable") boolean channelsDiscoverable,
-                                @Named("channels.service.name") String channelsServiceName) {
+                                @Nullable @Named("channels.service.name") String channelsServiceName) {
         io.vertx.rxjava.core.Vertx rxVertx = new io.vertx.rxjava.core.Vertx(vertx);
         Router router = Router.router(rxVertx);
 
