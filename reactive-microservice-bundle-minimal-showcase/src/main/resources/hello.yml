@@ -1,0 +1,8 @@
+vertx:
+  http:
+    server:
+      port: 8881
+  router:
+    static:
+      path: "/static/*"
+      root: "webroot"

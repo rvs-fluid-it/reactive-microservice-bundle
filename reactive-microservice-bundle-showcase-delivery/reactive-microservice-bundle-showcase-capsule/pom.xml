@@ -21,7 +21,7 @@
     <service.name>counter</service.name>
     <service.version>1</service.version>
     <reactive.microservice.bundle.version>${project.version}</reactive.microservice.bundle.version>
-    <mixin.capsule.app.class>be.fluid_it.rµs.bundle.showcase.app.CounterRunner</mixin.capsule.app.class>
+    <mixin.capsule.app.class>be.fluid_it.rµs.bundle.minimal.showcase.app.CounterRunner</mixin.capsule.app.class>
     <mixin.capsule.file.name>${service.name}</mixin.capsule.file.name>
     <mixin.docker.revision>${service.version}</mixin.docker.revision>
     <mixin.docker.image.name>${service.name}</mixin.docker.image.name>
