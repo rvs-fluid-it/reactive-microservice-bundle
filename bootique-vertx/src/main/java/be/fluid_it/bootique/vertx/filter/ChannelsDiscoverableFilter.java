@@ -5,7 +5,6 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
-import io.vertx.ext.web.handler.sockjs.BridgeEventType;
 import io.vertx.rxjava.ext.web.handler.sockjs.BridgeEvent;
 import io.vertx.rxjava.servicediscovery.types.MessageSource;
 import io.vertx.servicediscovery.Record;

@@ -1,4 +1,4 @@
-package be.fluid_it.rµs.bundle.showcase.domain;
+package be.fluid_it.rµs.bundle.minimal.showcase.domain;
 
 import io.vertx.core.json.JsonObject;
 

@@ -1,4 +1,4 @@
-package be.fluid_it.rµs.bundle.showcase.embedded;
+package be.fluid_it.rµs.bundle.minimal.showcase.embedded;
 
 import io.vertx.core.Vertx;
 

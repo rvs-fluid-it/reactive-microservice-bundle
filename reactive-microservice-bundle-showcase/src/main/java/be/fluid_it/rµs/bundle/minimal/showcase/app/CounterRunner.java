@@ -1,6 +1,6 @@
-package be.fluid_it.rµs.bundle.showcase.app;
+package be.fluid_it.rµs.bundle.minimal.showcase.app;
 
-import be.fluid_it.rµs.bundle.showcase.modules.ShowcaseModule;
+import be.fluid_it.rµs.bundle.minimal.showcase.modules.ShowcaseModule;
 import io.bootique.Bootique;
 
 public class CounterRunner {

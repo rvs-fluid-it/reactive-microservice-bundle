@@ -1,12 +1,12 @@
-package be.fluid_it.rµs.bundle.showcase.verticles;
+package be.fluid_it.rµs.bundle.minimal.showcase.verticles;
 
-import be.fluid_it.rµs.bundle.showcase.domain.CounterService;
+import be.fluid_it.rµs.bundle.minimal.showcase.domain.CounterService;
 import com.google.inject.name.Named;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.sockjs.BridgeEventType;
+import io.vertx.ext.bridge.BridgeEventType;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
 import io.vertx.ext.web.handler.sockjs.PermittedOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;

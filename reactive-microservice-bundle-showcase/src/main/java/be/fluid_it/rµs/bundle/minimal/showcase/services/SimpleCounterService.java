@@ -1,6 +1,6 @@
-package be.fluid_it.rµs.bundle.showcase.services;
+package be.fluid_it.rµs.bundle.minimal.showcase.services;
 
-import be.fluid_it.rµs.bundle.showcase.domain.CounterService;
+import be.fluid_it.rµs.bundle.minimal.showcase.domain.CounterService;
 import io.vertx.core.json.JsonObject;
 
 public class SimpleCounterService implements CounterService{
